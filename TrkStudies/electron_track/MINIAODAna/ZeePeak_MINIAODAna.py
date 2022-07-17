@@ -42,8 +42,9 @@ for i,event in enumerate(events):
     # two tight electrons
     event.getByLabel (label_electrons, handle_electrons)
     electrons = handle_electrons.product()
+    if len(electrons) != 2: continue
     tightelectrons = goodelectrons_miniaod( electrons )
-    if len(tightelectrons) !=2: continue
+    if len(tightelectrons) != 2: continue
 
     # z mass window
     pos = ROOT.TLorentzVector()
@@ -96,14 +97,14 @@ for i,event in enumerate(events):
 	
 
 
-    cols = [ 
+cols = [ 
 	'runNum',
 	'LumiBlock',
 	'eventNum', 
-	
+
 	'pos_charge',
-	'pos_mass',
-	'pos_pt',
+	'pos_electron_mass',
+	'pos_electron_pt',
 	'pos_gsfTrack_pt',
 	'pos_electron_eta',
 	'pos_gsfTrack_eta',
@@ -117,8 +118,8 @@ for i,event in enumerate(events):
 	'pos_ecalTrkPostCorr',
 
 	'neg_charge',
-	'neg_mass',
-	'neg_pt',
+	'neg_electron_mass',
+	'neg_electron_pt',
 	'neg_gsfTrack_pt',
 	'neg_electron_eta',
 	'neg_gsfTrack_eta',
@@ -132,22 +133,22 @@ for i,event in enumerate(events):
 	'neg_ecalTrkPostCorr',
 
 	'massz'
-	]
+]
 
 # print columns template for hmlt table
-with open('./columns.txt','w') as tmp:
+with open('../Bridge/miniaod_columns.txt','w') as tmp:
 	for l in cols:
 		tmp.write(l + '\n')
 	tmp.close()
 
 # print table and dump to json
 df = pd.DataFrame(list, columns=cols)
-result = df.to_json('./miniaod_Zee.json',orient='index')
+result = df.to_json('../Bridge/miniaod_Zee.json',orient='index')
 print df
 
 # print event index for aod analyzer
 print len(runNumbers)
-with open('ids.json','w') as json_file:
+with open('../Bridge/ids.json','w') as json_file:
 	json.dump({'id':runNumbers}, json_file)
 '''
 

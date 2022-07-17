@@ -12,11 +12,11 @@ dirs.mkrootdir('test_'+os.getcwd().split('/')[-1])
 path = dirs.root
 
 # load json to pandas dataframe
-df = pd.read_json('../Bridge/miniaod_Zee.json',orient='index')
+df = pd.read_json('../Bridge/aod_Zee.json',orient='index')
 
 # custom columns order
 colstmp = []
-with open('../Bridge/miniaod_columns.txt','r') as colsf:
+with open('../Bridge/aod_columns.txt','r') as colsf:
 	for l in colsf:
 		colstmp.append(l.strip())
 df = df[colstmp]
