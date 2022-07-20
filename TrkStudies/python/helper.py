@@ -40,4 +40,77 @@ def goodmuons_miniaod( muons, vtx ):
 	elif tightmuon_list[0].charge() * tightmuon_list[1].charge() > 0:
 		return []
 	else:
-		return tightmuon_list		
+		return tightmuon_list	
+		
+def tablesummary( evt, tighteles, list, runNumbers ):
+    
+    runNumbers.append(int(str(evt.eventAuxiliary().run())+str(evt.eventAuxiliary().luminosityBlock())+str(evt.eventAuxiliary().event())))
+       
+    list.append([
+        evt.eventAuxiliary().run(),
+        evt.eventAuxiliary().luminosityBlock(),
+        evt.eventAuxiliary().event(),
+        
+        tighteles[0].charge(),
+        float("{:.5f}".format(tighteles[0].mass())),
+        float("{:.3f}".format(tighteles[0].pt())),
+        float("{:.3f}".format(tighteles[0].gsfTrack().pt())),
+        float("{:.3f}".format(tighteles[0].eta())),
+        float("{:.3f}".format(tighteles[0].gsfTrack().eta())),
+        float("{:.3f}".format(tighteles[0].phi())),
+        float("{:.3f}".format(tighteles[0].gsfTrack().phi())),
+        float("{:.3f}".format(tighteles[0].correctedEcalEnergy())),
+        float("{:.3f}".format(tighteles[0].userFloat('ecalEnergyPreCorr'))),
+        float("{:.3f}".format(tighteles[0].userFloat('ecalTrkEnergyPreCorr'))),
+        float("{:.3f}".format(tighteles[0].userFloat('ecalEnergyPostCorr'))),
+        float("{:.3f}".format(tighteles[0].userFloat('ecalTrkEnergyPostCorr'))),
+        
+        tighteles[1].charge(),
+        float("{:.5f}".format(tighteles[1].mass())),
+        float("{:.3f}".format(tighteles[1].pt())),
+        float("{:.3f}".format(tighteles[1].gsfTrack().pt())),
+        float("{:.3f}".format(tighteles[1].eta())),
+        float("{:.3f}".format(tighteles[1].gsfTrack().eta())),
+        float("{:.3f}".format(tighteles[1].phi())),
+        float("{:.3f}".format(tighteles[1].gsfTrack().phi())),
+        float("{:.3f}".format(tighteles[1].correctedEcalEnergy())),
+        float("{:.3f}".format(tighteles[1].userFloat('ecalEnergyPreCorr'))),
+        float("{:.3f}".format(tighteles[1].userFloat('ecalTrkEnergyPreCorr'))),
+        float("{:.3f}".format(tighteles[1].userFloat('ecalEnergyPostCorr'))),
+        float("{:.3f}".format(tighteles[1].userFloat('ecalTrkEnergyPostCorr'))),
+       
+        ])
+
+cols = [ 
+        'runNum',
+        'LumiBlock',
+        'eventNum', 
+           
+        'pos_charge',
+        'pos_electron_mass',
+        'pos_electron_pt',
+        'pos_gsfTrack_pt',
+        'pos_electron_eta',
+        'pos_gsfTrack_eta',
+        'pos_electron_phi',
+        'pos_gsfTrack_phi',
+        'pos_correctedEcalEnergy',
+        'pos_ecalEnergyPreCorr',
+        'pos_ecalTrkPreCorr',
+        'pos_ecalEnergyPostCorr',
+        'pos_ecalTrkPostCorr',
+           
+        'neg_charge',
+        'neg_electron_mass',
+        'neg_electron_pt',
+        'neg_gsfTrack_pt',
+        'neg_electron_eta',
+        'neg_gsfTrack_eta',
+        'neg_electron_phi',
+        'neg_gsfTrack_phi',
+        'neg_correctedEcalEnergy',
+        'neg_ecalEnergyPreCorr',
+        'neg_ecalTrkPreCorr',
+        'neg_ecalEnergyPostCorr',
+        'neg_ecalTrkPostCorr',
+]	
